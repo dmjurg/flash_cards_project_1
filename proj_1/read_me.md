@@ -22,7 +22,7 @@ As a learner, once I have a bunch of cards, I want to play
   [X] Auto populate new cards with false
 [X] Display unanswered card country
 [X] Display unanswered card city
-[] Do not display correctly answered country or city
+[] Do not display cards once they have been correctly answered
 
 In order to focus on one area, I want to be able to sort my cards into categories
 

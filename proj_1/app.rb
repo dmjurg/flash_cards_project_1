@@ -29,6 +29,10 @@ loop do
     card = which_card
     puts card
     puts "Please make your changes
+    country:"
+    new_country = gets.chomp
+    card.country = new_country
+    puts "Please make your changes
     capital:"
     new_capital = gets.chomp
     card.capital = new_capital
@@ -43,27 +47,36 @@ loop do
     or to move to the next card
     **********
     type 'exit' to exit the game"
-      gets.chomp
-      Card.where(correctly_answered: false).each do |card|
+    user_input = gets.chomp
+
+    while user_input != "exit"
+      Card.where(correctly_answered: FALSE).each do |card|
         puts "country: #{card.country}"
         user_input = gets.chomp
-        return user_input if user_input == "exit"
+        if user_input == "exit"
+          break
+        end
         puts "capital: #{card.capital}"
         user_input = gets.chomp
-        return user_input if user_input == "exit"
+        if user_input == "exit"
+          break
+        end
         puts "did you get it right? yes or no"
         user_input = gets.chomp
-        return user_input if user_input == "exit"
-        #   if "yes"
-        #     card.correctly_answered = TRUE
-        #   elsif "no"
-        #     card.correctly_answered = FALSE
-        #   else
-        #     break
-        #   end
-        # break if user_input == "exit"
+        if user_input == "exit"
+          break
+        elsif user_input == "yes"
+          card.correctly_answered = TRUE
+          card.save
+        elsif user_input == "no"
+          card.correctly_answered = FALSE
+          card.save
+        else
+        end
+
       end
-    # end
+    end
+
   when "6"
     break
   end

@@ -14,9 +14,9 @@ world = Deck.find_by(category: "countries worldwide")
 world_deck = world.cards.create([
   {country: "United Kingdom", capital: "London", correctly_answered: FALSE},
   {country: "Ireland", capital: "Dublin", correctly_answered: FALSE},
-  # {country: "Germany", capital: "Berlin", correctly_answered: FALSE},
-  # {country: "Italy", capital: "Rome", correctly_answered: FALSE},
-  # {country: "Norway", capital: "Oslo", correctly_answered: FALSE},
+  {country: "Germany", capital: "Berlin", correctly_answered: FALSE},
+  {country: "Italy", capital: "Rome", correctly_answered: TRUE},
+  {country: "Norway", capital: "Oslo", correctly_answered: TRUE},
   # {country: "Austria", capital: "Vienna", correctly_answered: FALSE},
   # {country: "Sweden", capital: "Stockholm", correctly_answered: FALSE},
   # {country: "Peru", capital: "Lima", correctly_answered: FALSE},
