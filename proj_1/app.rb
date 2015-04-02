@@ -3,35 +3,58 @@ require 'pry'
 
 require_relative 'db/connection'
 require_relative 'lib/card'
+require_relative 'lib/deck'
 
-
-def get_new_card
-  card_attr = {}
-  puts "What country?"
-  card_attr[:country] = gets.chomp
-  puts "What is the capital?"
-  card_attr[:capital] = gets.chomp
-  return card_attr
+def menu
+  puts " ****** MENU ******
+  1. View all cards
+  2. Create a card
+  3. Edit a card
+  4. Delete a card
+  5. PLAY THE GAME
+  6. Quit"
+  return gets.chomp
 end
 
-def get_card
-  puts "Which card?"
-  puts Card.all
-  card_country = gets.chomp
-  return Card.find_by(country: card_country)
+loop do
+
+  choice = menu
+  case choice
+
+  when "1"
+    puts Card.all
+  when "2"
+    Card.create(create_new_card)
+  when "3"
+    card = which_card
+    puts card
+    puts "Please make your changes
+    capital:"
+    new_capital = gets.chomp
+    card.capital = new_capital
+    card.save
+  when "4"
+    card = which_card
+    card.destroy
+  when "5"
+    puts "    **********
+    game time!
+    press 'enter' to flip your card
+    or to move to the next card
+    **********
+    type 'exit' to exit the game"
+    loop do
+      user_input = gets.chomp
+      Card.where(correctly_answered: false).find_each do |card|
+        puts "**********"
+        puts "country: #{card.country}"
+        user_input
+        puts "capital: #{card.capital}"
+        user_input
+        break if user_input == "exit"
+        end
+    end
+  when "6"
+    break
+  end
 end
-
-puts Card.all
-
-Card.create(get_new_card)
-
-card = get_card
-puts "Please make your changes"
-new_country = gets.chomp
-card.country = new_country
-new_capital = gets.chomp
-card.capital = new_capital
-card.save
-
-card = get_card
-card.destroy

@@ -4,13 +4,30 @@ USER STORIES
 As a learner, I want to use a deck of cards to study countries and their capitals
 [X]  Create a card
   [X]  Use a question-answer pair
-[X]  View a card (question only)
+[?]  View a card (question only???)
+  []? View a specific card (Q and A)  
 [X]  Edit a card
-[]  Delete a card
+  []? Edit both the country and capital?
+[X]  Delete a card
 
-Once I have a deck of cards, I want to use it to play
+As a programmer, I want to be able to validate the user input data
+[X] Validate card info!
+  [] Should it display an error or just not save the data?
+
+As a programmer, I want to be sure my methods work properly
+[] Write tests
+
+As a learner, once I have a bunch of cards, I want to play
+[] Has a card been answered correctly? Boolean
+  [X] Auto populate new cards with false
+[X] Display unanswered card country
+[X] Display unanswered card city
+[] Do not display correctly answered country or city
 
 In order to focus on one area, I want to be able to sort my cards into categories
+
+In order to track my progress, I would like to track my score
+[] Record correctness on each viewing
 
 
 DIARY
