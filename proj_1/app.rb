@@ -43,17 +43,27 @@ loop do
     or to move to the next card
     **********
     type 'exit' to exit the game"
-    loop do
-      user_input = gets.chomp
-      Card.where(correctly_answered: false).find_each do |card|
-        puts "**********"
+      gets.chomp
+      Card.where(correctly_answered: false).each do |card|
         puts "country: #{card.country}"
-        user_input
+        user_input = gets.chomp
+        return user_input if user_input == "exit"
         puts "capital: #{card.capital}"
-        user_input
-        break if user_input == "exit"
-        end
-    end
+        user_input = gets.chomp
+        return user_input if user_input == "exit"
+        puts "did you get it right? yes or no"
+        user_input = gets.chomp
+        return user_input if user_input == "exit"
+        #   if "yes"
+        #     card.correctly_answered = TRUE
+        #   elsif "no"
+        #     card.correctly_answered = FALSE
+        #   else
+        #     break
+        #   end
+        # break if user_input == "exit"
+      end
+    # end
   when "6"
     break
   end
