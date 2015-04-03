@@ -24,7 +24,7 @@ As a learner, once I have a bunch of cards, I want to play
 [X] Display unanswered card city
 [X] Do not display cards once they have been correctly answered
 [X] Loop through until all cards have been answered true
-  [] Display message and exit if all cards = true
+  [X] Display message and exit if all cards = true
 [X] Call a new deck
 
 In order to track my progress, I would like to track my score
@@ -33,7 +33,7 @@ In order to track my progress, I would like to track my score
 In order to focus on one area, I want to be able to sort my cards into categories
 [X] Create existing categories for the cards
 [X] Be able to list all categories
-[] Be able to view cards in one category
+[] Be able to play the game in just one category
 
 
 

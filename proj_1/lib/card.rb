@@ -8,5 +8,15 @@ class Card < ActiveRecord::Base
   def to_s
     return "country: #{country}"
   end
-  
+
 end
+
+
+# new_card = Card.new(front: "Hi", back: "bye")
+#
+# if new_card.valid?
+#   new_card.save
+# else
+#   puts new_card[:errors]
+# end
+  

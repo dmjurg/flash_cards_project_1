@@ -5,10 +5,16 @@ require_relative 'db/connection'
 require_relative 'lib/card'
 require_relative 'lib/deck'
 
+def get_user_input(prompt)
+  puts prompt
+  gets.chomp
+end
+
 def create_new_card
   card_attr = {}
   puts "What country?"
   card_attr[:country] = gets.chomp
+  # card_attr[:country] = get_user_input("What country?")
   puts "What is the capital?"
   card_attr[:capital] = gets.chomp
   card_attr[:correctly_answered] = FALSE
@@ -39,6 +45,8 @@ def menu
   return gets.chomp
 end
 
+puts "GUESS THE COUNTRY'S CAPITAL"
+
 loop do
 
   choice = menu
@@ -50,37 +58,79 @@ loop do
       card.save
     end
 
-    puts "    **********
-    game time!
-    press 'enter' to flip your card
-    or to move to the next card
-    **********
-    type 'exit' to exit the game"
-    user_input = gets.chomp
+    puts "Which deck would you like to use?
+    Type 'all' or the relevant id number"
+    puts Deck.all
+    deck_choice = gets.chomp
 
-    while user_input != "exit"
-      Card.where(correctly_answered: FALSE).each do |card|
-        puts "country: #{card.country}"
-        user_input = gets.chomp
-        if user_input == "exit"
-          break
+    if deck_choice == "all"
+      puts "********** GaMe TiMe! **********
+      Press 'enter' to flip your card
+      and to move to the next card
+      **********
+      type 'exit' to exit the game
+      **********"
+      user_input = gets.chomp
+
+      while user_input != "exit" && Card.where(correctly_answered: FALSE).size > 0
+        Card.where(correctly_answered: FALSE).each do |card|
+          puts "country: #{card.country}"
+          user_input = gets.chomp
+          if user_input == "exit"
+            break
+          end
+          puts "capital: #{card.capital}"
+          user_input = gets.chomp
+          if user_input == "exit"
+            break
+          end
+          puts "did you get it right? yes or no"
+          user_input = gets.chomp
+          if user_input == "exit"
+            break
+          elsif user_input == "yes"
+            card.correctly_answered = TRUE
+            card.save
+          else
+          end
         end
-        puts "capital: #{card.capital}"
-        user_input = gets.chomp
-        if user_input == "exit"
-          break
-        end
-        puts "did you get it right? yes or no"
-        user_input = gets.chomp
-        if user_input == "exit"
-          break
-        elsif user_input == "yes"
-          card.correctly_answered = TRUE
-          card.save
-        else
+      end
+
+    else
+      puts "********** GaMe TiMe! **********
+      Press 'enter' to flip your card
+      and to move to the next card
+      **********
+      type 'exit' to exit the game
+      **********"
+      user_input = gets.chomp
+      while user_input != "exit" && Card.where(deck_id: deck_choice).where(correctly_answered: FALSE).size > 0
+        puts "Exit status: #{user_input}"
+        puts "Size: #{Card.where(deck_id: deck_choice).where(correctly_answered: FALSE).size}"
+        Card.where(deck_id: deck_choice).where(correctly_answered: FALSE).each do |card|
+          puts "country: #{card.country}"
+          user_input = gets.chomp
+          if user_input == "exit"
+            break
+          end
+          puts "capital: #{card.capital}"
+          user_input = gets.chomp
+          if user_input == "exit"
+            break
+          end
+          puts "did you get it right? yes or no"
+          user_input = gets.chomp
+          if user_input == "exit"
+            break
+          elsif user_input == "yes"
+            card.correctly_answered = TRUE
+            card.save
+          else
+          end
         end
       end
     end
+
   when "2"
     puts "    **********
     game time!
@@ -89,7 +139,7 @@ loop do
     **********
     type 'exit' to exit the game"
     user_input = gets.chomp
-    while user_input != "exit"
+    while user_input != "exit" && Card.where(correctly_answered: FALSE).size > 0
       Card.where(correctly_answered: FALSE).each do |card|
         puts "country: #{card.country}"
         user_input = gets.chomp
@@ -115,10 +165,13 @@ loop do
 
   when "3"
     puts Card.all
+
   when "4"
     puts Deck.all
+
   when "5"
     Card.create(create_new_card)
+
   when "6"
     card = which_card
     puts card
@@ -131,11 +184,14 @@ loop do
     new_capital = gets.chomp
     card.capital = new_capital
     card.save
+
   when "7"
     card = which_card
     card.destroy
+
   when "8"
     puts "I know the capitals of #{Card.where(correctly_answered: TRUE).count} countries!"
+
   when "9"
     break
   end
