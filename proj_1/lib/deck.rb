@@ -4,7 +4,7 @@ class Deck < ActiveRecord::Base
   validates :category, presence: true
 
   def to_s
-    return "category: #{category}"
+    return "id: #{id}, category: #{category}"
   end
 
 end
